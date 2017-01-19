@@ -8,14 +8,14 @@
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
-    <link href="{MASTERPATH}bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-  <link type="text/css" rel="stylesheet" href="{MASTERPATH}m2html.css">
+    <link href="{MASTERPATH}css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+  <link type="text/css" rel="stylesheet" href="{MASTERPATH}css/m2html.css">
 </head>
 <body>
     <div class="container">
 <a name="_top"></a>
-<table width="100%"><tr><td align="left"><a href="{MASTERPATH}{INDEX}"><img alt="<" border="0" src="{MASTERPATH}left.png">&nbsp;Master index</a></td>
-<td align="right"><a href="{INDEX}">Index for {MDIR}&nbsp;<img alt=">" border="0" src="{MASTERPATH}right.png"></a></td></tr></table>
+<table width="100%"><tr><td align="left"><a href="{MASTERPATH}{INDEX}"><img alt="<" border="0" src="{MASTERPATH}img/left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="{INDEX}">Index for {MDIR}&nbsp;<img alt=">" border="0" src="{MASTERPATH}img/right.png"></a></td></tr></table>
 <h1>To Do List for {MDIR}</h1>
 <!-- BEGIN filelist -->
 <h2>{MFILE}:</h2>
@@ -28,7 +28,7 @@
 <hr>
     <address>Documentation generated on {DATE} for {PROJECT} Version {VERSION} </address>
   </div>
-  <script src="{MASTERPATH}jquery.min.js"></script>
-  <script src="{MASTERPATH}bootstrap.min.js"></script>
+  <script src="{MASTERPATH}js/jquery.min.js"></script>
+  <script src="{MASTERPATH}js/bootstrap.min.js"></script>
 </body>
 </html>

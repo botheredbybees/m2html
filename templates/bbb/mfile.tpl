@@ -8,8 +8,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 		<meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
 		<meta name="robots" content="index, follow">
-		<link href="{MASTERPATH}bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-		<link type="text/css" rel="stylesheet" href="{MASTERPATH}m2html.css">
+		<link href="{MASTERPATH}css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+		<link type="text/css" rel="stylesheet" href="{MASTERPATH}css/m2html.css">
 	</head>
 	<body>
 		<div class="container">
@@ -20,7 +20,7 @@
 				<li class="active">{NAME}.m</li>
 			</ol>
 			<h1>{NAME}
-			<!-- BEGIN mexfile --> &nbsp;&nbsp;<img src="{MASTERPATH}{MEXTYPE}.png" alt="{PLATFORMS}" border="0" title="{PLATFORMS}"> <!-- END mexfile -->
+			<!-- BEGIN mexfile --> &nbsp;&nbsp;<img src="{MASTERPATH}img/{MEXTYPE}.png" alt="{PLATFORMS}" border="0" title="{PLATFORMS}"> <!-- END mexfile -->
 			</h1>
 			<h2><a name="_name"></a>Purpose <a href="#_top"></a></h2>
 			<div class="box"><strong>{H1LINE}</strong></div>
@@ -82,7 +82,7 @@
 			<hr>
 		<address>Documentation generated on {DATE} for {PROJECT} Version {VERSION} </address>
 	</div>
-	<script src="{MASTERPATH}jquery.min.js"></script>
-	<script src="{MASTERPATH}bootstrap.min.js"></script>
+	<script src="{MASTERPATH}js/jquery.min.js"></script>
+	<script src="{MASTERPATH}js/bootstrap.min.js"></script>
 </body>
 </html>

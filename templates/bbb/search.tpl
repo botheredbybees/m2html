@@ -8,8 +8,8 @@
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
-    <link href="{MASTERPATH}bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-  <link type="text/css" rel="stylesheet" href="{MASTERPATH}m2html.css">
+    <link href="{MASTERPATH}css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+  <link type="text/css" rel="stylesheet" href="{MASTERPATH}css/m2html.css">
 </head>
 <body>
     <div class="container">
@@ -29,7 +29,7 @@ Search for <input class="search" type="text" name="query" value="<?php echo $que
 <hr>
     <address>Documentation generated on {DATE} for {PROJECT} Version {VERSION} </address>
   </div>
-  <script src="{MASTERPATH}jquery.min.js"></script>
-  <script src="{MASTERPATH}bootstrap.min.js"></script>
+  <script src="{MASTERPATH}js/jquery.min.js"></script>
+  <script src="{MASTERPATH}js/bootstrap.min.js"></script>
 </body>
 </html>

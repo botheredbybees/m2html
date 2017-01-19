@@ -27,7 +27,7 @@ function m2html(varargin)
 %        'dot' required, see <http://www.graphviz.org/>
 %    o indexFile - Basename of the HTML index file [ 'index' ]
 %    o extension - Extension of generated HTML files [ '.html' ]
-%    o template - HTML template name to use [ {'peter'} | 'blue' | ... ]
+%    o template - HTML template name to use [ {'bbb'} | 'blue' | ... ]
 %    o search - Add a PHP search engine [ on | {off}] - beta version!
 %    o ignoredDir - List of directories to be ignored [ {'.svn' 'cvs'} ]
 %    o save - Save current state after M-files parsing in 'm2html.mat' 
@@ -53,8 +53,12 @@ function m2html(varargin)
 
 %  Copyright (C) 2005 Guillaume Flandin <Guillaume@artefact.tk>
 %  $Revision: 1.5 $Date: 2005/05/01 16:15:30 $
-% Peter Shanks: fixed a bug with internal links to function names (line 1164), Jan 17, 2017
-% also added some code for passing the project name and version in the function call
+%
+% This version was updated by Peter Shanks (botheredbybees) 2017
+% and is hosted on https://github.com/botheredbybees/m2html 
+% Includes bug fix for internal links to function names 
+% some code for passing the project name and version in the function call and a 
+% bug fix for calling the 'global' switch.
 
 %  This program is free software; you can redistribute it and/or
 %  modify it under the terms of the GNU General Public License
@@ -91,23 +95,20 @@ function m2html(varargin)
 %  <http://www.artefact.tk/software/matlab/m2html/>
 
 %  Other Matlab to HTML converters available on the web:
-%  1/ mat2html.pl, J.C. Kantor, in Perl, 1995: 
-%     <http://fresh.t-systems-sfr.com/unix/src/www/mat2html>
-%  2/ htmltools, B. Alsberg, in Matlab, 1997:
+%  
+%  1/ htmltools, B. Alsberg, in Matlab, 1997:
 %     <http://www.mathworks.com/matlabcentral/fileexchange/loadFile.do?objectId=175>
-%  3/ mtree2html2001, H. Pohlheim, in Perl, 1996, 2001:
+%  2/ mtree2html2001, H. Pohlheim, in Perl, 1996, 2001:
 %     <http://www.pohlheim.com/perl_main.html#matlabdocu>
-%  4/ MatlabCodeColorizer, S. Faridani, in C#, 2005:
-%     <http://www.pitchup.com/matlabcolorizer/>
-%  5/ Highlight, G. Flandin, in Matlab, 2003:
+%  3/ Highlight, G. Flandin, in Matlab, 2003:
 %     <http://www.artefact.tk/software/matlab/highlight/>
-%  6/ mdoc, P. Brinkmann, in Matlab, 2003:
+%  4/ mdoc, P. Brinkmann, in Matlab, 2003:
 %     <http://www.math.uiuc.edu/~brinkman/software/mdoc/>
-%  7/ Ocamaweb, Miriad Technologies, in Ocaml, 2002:
+%  5/ Ocamaweb, Miriad Technologies, in Ocaml, 2002:
 %     <http://ocamaweb.sourceforge.net/>
-%  8/ Matdoc, M. Kaminsky, in Perl, 2003:
+%  6/ Matdoc, M. Kaminsky, in Perl, 2003:
 %     <http://www.mathworks.com/matlabcentral/fileexchange/loadFile.do?objectId=3498>
-%  9/ Matlab itself, The Mathworks Inc, with HELPWIN, DOC and PUBLISH (R14)
+%  7/ Matlab itself, The Mathworks Inc, with HELPWIN, DOC and PUBLISH (R14)
 
 %-------------------------------------------------------------------------------
 %- Set up options and default parameters
@@ -132,7 +133,7 @@ options = struct('verbose', 1,...
 				 'helptocxml', 0,...
 				 'indexFile', 'index',...
 				 'extension', '.html',...
-				 'template', 'peter',...
+				 'template', 'bbb',...
 				 'project', '',...
 				 'version', '1',...
                  'rootdir', pwd,...
@@ -628,6 +629,10 @@ for i=1:length(d)
 		end
 	end
 end
+% and any css, js and img dirs in the template
+copyfile(strcat(options.template,'/css'),strcat(options.htmlDir,'/css'));
+copyfile(strcat(options.template,'/js'),strcat(options.htmlDir,'/js'));
+copyfile(strcat(options.template,'/img'),strcat(options.htmlDir,'/img'));
 
 %-------------------------------------------------------------------------------
 %- Search engine (index file and PHP script)
@@ -898,84 +903,6 @@ if options.todo
 			fprintf(fid,'%s',get(tpl,'OUT'));
 			fclose(fid);
 		end
-	end
-end
-
-%-------------------------------------------------------------------------------
-%- Create dependency graphs using GraphViz, if requested
-%-------------------------------------------------------------------------------
-tpl_graph = 'graph.tpl';
-% You may have to modify the following line with Matlab7 (R14) to specify
-% the full path to where GraphViz is installed
-dot_exec  = 'dot';
-%dotbase defined earlier
-
-if options.graph
-	%- Create the HTML template
-	tpl = template(options.template,'remove');
-	tpl = set(tpl,'file','TPL_GRAPH',tpl_graph);
-	tpl = set(tpl,'var','DATE',[datestr(now,8) ' ' datestr(now,1) ' ' ...
-								datestr(now,13)]);
-	
-    %- Create a full dependency graph for all directories if possible
-    if options.globalHypertextLinks & length(mdir) > 1
-        mdotfile = fullfile(options.htmlDir,[dotbase '.dot']);
-        if options.verbose
-			fprintf('Creating full dependency graph %s...',mdotfile);
-		end
-        mdot({hrefs, names, options, mdirs}, mdotfile); %mfiles
-        calldot(dot_exec, mdotfile, ...
-                fullfile(options.htmlDir,[dotbase '.map']), ...
-                fullfile(options.htmlDir,[dotbase '.png']));
-        if options.verbose, fprintf('\n'); end
-        fid = openfile(fullfile(options.htmlDir, [dotbase options.extension]),'w');
-        tpl = set(tpl,'var','INDEX',[options.indexFile options.extension]);
-	    tpl = set(tpl,'var','MASTERPATH', './');
-	    tpl = set(tpl,'var','MDIR',       'the whole toolbox');
-        tpl = set(tpl,'var','GRAPH_IMG',  [dotbase '.png']);
-        %- add project details
-		tpl = set(tpl,'var','PROJECT',options.project);
-		tpl = set(tpl,'var','VERSION',options.version);
-        try % if <dot> failed...
-	    	fmap = openfile(fullfile(options.htmlDir,[dotbase '.map']),'r');
-	    	tpl = set(tpl,'var','GRAPH_MAP',  fscanf(fmap,'%c'));
-		    fclose(fmap);
-        end
-		tpl = parse(tpl,'OUT','TPL_GRAPH');
-		fprintf(fid,'%s', get(tpl,'OUT'));
-        fclose(fid);
-    end
-    
-    %- Create a dependency graph for each output directory
-	for i=1:length(mdir)
-		mdotfile = fullfile(options.htmlDir,mdir{i},[dotbase '.dot']);
-		if options.verbose
-			fprintf('Creating dependency graph %s...',mdotfile);
-		end
-		ind = find(strcmp(mdirs,mdir{i}));
-		href1 = zeros(length(ind),length(hrefs));
-		for j=1:length(hrefs), href1(:,j) = hrefs(ind,j); end
-		href2 = zeros(length(ind));
-		for j=1:length(ind), href2(j,:) = href1(j,ind); end
-		mdot({href2, {names{ind}}, options}, mdotfile); %{mfiles{ind}}
-        calldot(dot_exec, mdotfile, ...
-                fullfile(options.htmlDir,mdir{i},[dotbase '.map']), ...
-                fullfile(options.htmlDir,mdir{i},[dotbase '.png']));
-		if options.verbose, fprintf('\n'); end
-		fid = openfile(fullfile(options.htmlDir,mdir{i},...
-			[dotbase options.extension]),'w');
-		tpl = set(tpl,'var','INDEX',[options.indexFile options.extension]);
-		tpl = set(tpl,'var','MASTERPATH', backtomaster(mdir{i}));
-		tpl = set(tpl,'var','MDIR',       mdir{i});
-		tpl = set(tpl,'var','GRAPH_IMG',  [dotbase '.png']);
-        try % if <dot> failed, no '.map' file has been created
-	    	fmap = openfile(fullfile(options.htmlDir,mdir{i},[dotbase '.map']),'r');
-	    	tpl = set(tpl,'var','GRAPH_MAP',  fscanf(fmap,'%c'));
-		    fclose(fmap);
-        end
-		tpl = parse(tpl,'OUT','TPL_GRAPH');
-		fprintf(fid,'%s', get(tpl,'OUT'));
-		fclose(fid);
 	end
 end
 
@@ -1320,6 +1247,84 @@ for i=1:length(mdir)
 			fclose(fid2);
 			fclose(fid);
 		end
+	end
+end
+
+%-------------------------------------------------------------------------------
+%- Create dependency graphs using GraphViz, if requested
+%-------------------------------------------------------------------------------
+tpl_graph = 'graph.tpl';
+% You may have to modify the following line with Matlab7 (R14) to specify
+% the full path to where GraphViz is installed
+dot_exec  = 'dot';
+%dotbase defined earlier
+
+if options.graph
+	%- Create the HTML template
+	tpl = template(options.template,'remove');
+	tpl = set(tpl,'file','TPL_GRAPH',tpl_graph);
+	tpl = set(tpl,'var','DATE',[datestr(now,8) ' ' datestr(now,1) ' ' ...
+								datestr(now,13)]);
+	
+    %- Create a full dependency graph for all directories if possible
+    if options.globalHypertextLinks & length(mdir) > 1
+        mdotfile = fullfile(options.htmlDir,[dotbase '.dot']);
+        if options.verbose
+			fprintf('Creating full dependency graph %s...',mdotfile);
+		end
+        mdot({hrefs, names, options, mdirs}, mdotfile); %mfiles
+        calldot(dot_exec, mdotfile, ...
+                fullfile(options.htmlDir,[dotbase '.map']), ...
+                fullfile(options.htmlDir,[dotbase '.png']));
+        if options.verbose, fprintf('\n'); end
+        fid = openfile(fullfile(options.htmlDir, [dotbase options.extension]),'w');
+        tpl = set(tpl,'var','INDEX',[options.indexFile options.extension]);
+	    tpl = set(tpl,'var','MASTERPATH', './');
+	    tpl = set(tpl,'var','MDIR',       'the whole toolbox');
+        tpl = set(tpl,'var','GRAPH_IMG',  [dotbase '.png']);
+        %- add project details
+		tpl = set(tpl,'var','PROJECT',options.project);
+		tpl = set(tpl,'var','VERSION',options.version);
+        try % if <dot> failed...
+	    	fmap = openfile(fullfile(options.htmlDir,[dotbase '.map']),'r');
+	    	tpl = set(tpl,'var','GRAPH_MAP',  fscanf(fmap,'%c'));
+		    fclose(fmap);
+        end
+		tpl = parse(tpl,'OUT','TPL_GRAPH');
+		fprintf(fid,'%s', get(tpl,'OUT'));
+        fclose(fid);
+    end
+    
+    %- Create a dependency graph for each output directory
+	for i=1:length(mdir)
+		mdotfile = fullfile(options.htmlDir,mdir{i},[dotbase '.dot']);
+		if options.verbose
+			fprintf('Creating dependency graph %s...',mdotfile);
+		end
+		ind = find(strcmp(mdirs,mdir{i}));
+		href1 = zeros(length(ind),length(hrefs));
+		for j=1:length(hrefs), href1(:,j) = hrefs(ind,j); end
+		href2 = zeros(length(ind));
+		for j=1:length(ind), href2(j,:) = href1(j,ind); end
+		mdot({href2, {names{ind}}, options}, mdotfile); %{mfiles{ind}}
+        calldot(dot_exec, mdotfile, ...
+                fullfile(options.htmlDir,mdir{i},[dotbase '.map']), ...
+                fullfile(options.htmlDir,mdir{i},[dotbase '.png']));
+		if options.verbose, fprintf('\n'); end
+		fid = openfile(fullfile(options.htmlDir,mdir{i},...
+			[dotbase options.extension]),'w');
+		tpl = set(tpl,'var','INDEX',[options.indexFile options.extension]);
+		tpl = set(tpl,'var','MASTERPATH', backtomaster(mdir{i}));
+		tpl = set(tpl,'var','MDIR',       mdir{i});
+		tpl = set(tpl,'var','GRAPH_IMG',  [dotbase '.png']);
+        try % if <dot> failed, no '.map' file has been created
+	    	fmap = openfile(fullfile(options.htmlDir,mdir{i},[dotbase '.map']),'r');
+	    	tpl = set(tpl,'var','GRAPH_MAP',  fscanf(fmap,'%c'));
+		    fclose(fmap);
+        end
+		tpl = parse(tpl,'OUT','TPL_GRAPH');
+		fprintf(fid,'%s', get(tpl,'OUT'));
+		fclose(fid);
 	end
 end
 

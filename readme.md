@@ -12,6 +12,15 @@ And I wanted to be able to get to it from the shore and from onboard the reasear
 
 Guillaume's code was a really good starting point
 
+## Changes in a nutshell
+** The differences between this code and the original artefact.tk package **
+
+I've added a little bit of functionality and fixed a couple of minor bugs in m2html.m
+
+I've also added a bunch of code to private/mfileparse.m to accomodate the comment style quirks of my particular code base. If you're hoping to use this on a normally commented matlab project you would be better off overwriting this with the original version (saved as private/mfileparse.original)
+
+I've also added a bootstrap 3 based html5 template called bbb
+
 ## Quick Start
 After cloning/downloading and unzipping (say to C:\matlab\m2html)
 Start MATLAB and add m2html in your MATLAB path:

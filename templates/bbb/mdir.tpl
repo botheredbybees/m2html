@@ -8,8 +8,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 		<meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
 		<meta name="robots" content="index, follow">
-		<link href="{MASTERPATH}bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-		<link type="text/css" rel="stylesheet" href="{MASTERPATH}m2html.css">
+		<link href="{MASTERPATH}css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+		<link type="text/css" rel="stylesheet" href="{MASTERPATH}css/m2html.css">
 	</head>
 	<body>
 		<div class="container">
@@ -21,7 +21,7 @@
 			<h1>Index of {MDIR}</h1>
 
 			<!-- BEGIN graph -->
-			<a href="{LGRAPH}"><h2>Dependency Graph <img alt=">" border="0" src="{MASTERPATH}right.png"></h2></a><br>
+			<a href="{LGRAPH}"><h2>Dependency Graph <img alt=">" border="0" src="{MASTERPATH}img/right.png"></h2></a><br>
 			<!-- END graph -->
 			<div class="jumbotron">
 				<h2>Matlab files:</h2><br>
@@ -33,7 +33,7 @@
 					<div class="col-md-9">
 						{H1LINE}
 					</div>
-					<!-- BEGIN mexfile --> <img src="{MASTERPATH}mex.png" alt="MEX" border="0"> <!-- END mexfile -->
+					<!-- BEGIN mexfile --> <img src="{MASTERPATH}img/mex.png" alt="MEX" border="0"> <!-- END mexfile -->
 				</div>
 				<!-- END row-m -->
 			</div>
@@ -63,7 +63,7 @@
 			<hr>
     <address>Documentation generated on {DATE} for {PROJECT} Version {VERSION} </address>
 	</div>
-	<script src="{MASTERPATH}jquery.min.js"></script>
-	<script src="{MASTERPATH}bootstrap.min.js"></script>
+	<script src="{MASTERPATH}js/jquery.min.js"></script>
+	<script src="{MASTERPATH}js/bootstrap.min.js"></script>
 </body>
 </html>
