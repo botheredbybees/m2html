@@ -27,7 +27,7 @@ Search for <input class="search" type="text" name="query" value="<?php echo $que
 ?>
 
 <hr>
-    <address>Documentation generated on {DATE} for {PROJECT} Version {VERSION} </address>
+    <address>Generated on {DATE} for {PROJECT} Version {VERSION} </address>
   </div>
   <script src="{MASTERPATH}js/jquery.min.js"></script>
   <script src="{MASTERPATH}js/bootstrap.min.js"></script>

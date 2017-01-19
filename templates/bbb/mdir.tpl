@@ -15,7 +15,7 @@
 		<div class="container">
 			<a name="_top"></a>
 			<ol class="breadcrumb">
-				<li><a href="{MASTERPATH}{INDEX}">Home</a></li>
+				<li><a href="{MASTERPATH}{INDEX}">{PROJECT} sourcecode Home</a></li>
 				<li class="active">{MDIR}</li>
 			</ol>
 			<h1>Index of {MDIR}</h1>
@@ -61,7 +61,7 @@
 			</ul>
 			<!-- END todolist -->
 			<hr>
-    <address>Documentation generated on {DATE} for {PROJECT} Version {VERSION} </address>
+    <address>Generated on {DATE} for {PROJECT} Version {VERSION} </address>
 	</div>
 	<script src="{MASTERPATH}js/jquery.min.js"></script>
 	<script src="{MASTERPATH}js/bootstrap.min.js"></script>

@@ -14,12 +14,12 @@
 	<body>
 		<a name="_top"></a>
 		<ol class="breadcrumb">
-			<li><a href="{MASTERPATH}{INDEX}">Master index</a></li>
+			<li><a href="{MASTERPATH}{INDEX}">{PROJECT} sourcecode Home</a></li>
 			<li><a href="{INDEX}">Index for {MDIR}</a></li>
 			<li class="active">{MDIR} dependencies</li>
 		</ol>
 		<h1>Dependency Graph for {MDIR}</h1>
-		<p>Click on any class to view details</p>
+		<p>Click class name for details</p>
 		<center>
 		<img src="{GRAPH_IMG}" usemap="#mainmap" alt="Dependency Graph for {MDIR}" border="2" style="color:#000;">
 		<map name="mainmap">
@@ -27,7 +27,7 @@
 		</map>
 		</center>
 		<hr>
-    <address>Documentation generated on {DATE} for {PROJECT} Version {VERSION} </address>
+	<address>Generated on {DATE} for {PROJECT} Version {VERSION} </address>
 	<script src="{MASTERPATH}js/jquery.min.js"></script>
 	<script src="{MASTERPATH}js/bootstrap.min.js"></script>
 </body>

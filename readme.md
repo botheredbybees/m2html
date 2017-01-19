@@ -15,9 +15,15 @@ Guillaume's code was a really good starting point
 ## Changes in a nutshell
 ** The differences between this code and the original artefact.tk package **
 
-I've added a little bit of functionality and fixed a couple of minor bugs in m2html.m
+I've added a bit of functionality and fixed a couple of minor bugs in m2html.m
+- allow the project name and version number to be passed in the function call (ready to use in a template)
+- fixed a bug with internal links in the file page
+- added code to use the 'global' switch alluded to in the existing documentation
+- allowed for css, js and img directories in templates
 
-I've also added a bunch of code to private/mfileparse.m to accomodate the comment style quirks of my particular code base. If you're hoping to use this on a normally commented matlab project you would be better off overwriting this with the original version (saved as private/mfileparse.original)
+Added code to private/mfileparse.m to accomodate the comment style quirks of my particular code base. If you're hoping to use this on a normally commented matlab project you would be better off overwriting this with the original version (saved as private/mfileparse.original.m)
+
+Updated all calls to the soon to be retired nargchk functions to use narginchk instead
 
 I've also added a bootstrap 3 based html5 template called bbb
 

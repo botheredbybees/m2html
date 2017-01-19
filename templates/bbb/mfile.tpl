@@ -15,7 +15,7 @@
 		<div class="container">
 			<a name="_top"></a>
 			<ol class="breadcrumb">
-				<li><a href="{MASTERPATH}{INDEX}">Home</a></li>
+				<li><a href="{MASTERPATH}{INDEX}">{PROJECT} sourcecode Home</a></li>
 				<!-- BEGIN pathline --> <li><a href="{LPATHDIR}">{PATHDIR}</a></li> <!-- END pathline -->
 				<li class="active">{NAME}.m</li>
 			</ol>
@@ -80,7 +80,7 @@
 			<div class="fragment"><pre>{SOURCECODE}</pre></div>
 			<!-- END source -->
 			<hr>
-		<address>Documentation generated on {DATE} for {PROJECT} Version {VERSION} </address>
+		<address>Generated on {DATE} for {PROJECT} Version {VERSION} </address>
 	</div>
 	<script src="{MASTERPATH}js/jquery.min.js"></script>
 	<script src="{MASTERPATH}js/bootstrap.min.js"></script>
