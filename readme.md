@@ -8,7 +8,7 @@ I scored a job which entailed documenting and maintaining some matlab code writt
 
 I also wanted it to look attractive enough to make sitting down and reading it less of a chore.
 
-And I wanted to be able to get to it from the shore and from onboard the reasearch vessel where I work and where most of the code gets run and occasionally updated (hence this github repository)
+And I wanted to be able to get to it from the shore and from onboard the reasearch vessel where I work, and where most of the code gets run and occasionally updated (hence this github repository)
 
 Guillaume's code was a really good starting point
 

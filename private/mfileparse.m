@@ -77,7 +77,7 @@ while 1
 		if ~isempty(s.synopsis), break, end
 	%- Go through empty lines
 	elseif isempty(tline)
-		
+		break;
 	%- Code found. Stop.
 	else
 		if flagsynopcont
@@ -105,10 +105,11 @@ end
 
 %- Compute cross-references and extract subroutines
 %  hrefs(i) is 1 if mfile calls mfiles{i} and 0 otherwise
+prefetched = false;
+candidate = '';
 while ischar(tline)
 	% Remove blanks at both ends
-	tline = strtrim(tline);
-	
+	tline = strtrim(tline);	
 	% Split code into meaningful chunks
 	splitc = splitcode(tline);
 	for j=1:length(splitc)
@@ -130,14 +131,43 @@ while ischar(tline)
 			if ~isempty(strmatch('% Function',splitc{j})) | ...
 				~isempty(strmatch('% Construct',splitc{j})) | ...
 				~isempty(strmatch('% The constructor',splitc{j}))
-				if isempty(strmatch('%%',splitc{j})) 
-					% skip lines beginning with %%
+				if isempty(strmatch('%%',splitc{j})) & ...
+				   isempty(strmatch('% Constructing',splitc{j}))	
 					s.subroutineH1{end+1} = splitc{j}(2:end);
+				else					
+					% skip lines beginning with %% and use the next line instead
+					tline = fgetl(fid);
+					prefetched = true; % so that we don't read another line at the end of the loop
+					funcH1 = strtrim(tline);
+					if isempty(strmatch('%',funcH1))
+						funcH1 = ''; % it wasn't a comment
+					else
+						% remove the leading %
+						funcH1 = funcH1(2:end);
+						s.subroutineH1{end+1} = funcH1;
+					end
+				end
+			elseif ~isempty(strmatch('%%',splitc{j}))
+				% see if this has a Lindsay type function name after it
+				candidate = strtrim(splitc{j}(3:end));
+				tline = fgetl(fid);
+				prefetched = true; % so that we don't read another line at the end of the loop
+				funcH1 = strtrim(tline);
+				if isempty(strmatch('%',funcH1))
+					funcH1 = ''; % it wasn't a comment
+				else
+					% remove the leading %
+					funcH1 = funcH1(2:end);
 				end
 			end
 		else
 			% detect if this line is a declaration of a subroutine
-			if ~isempty(strmatch('function',splitc{j}))				
+			if ~isempty(strmatch('function',splitc{j}))	
+				if ~isempty(strmatch('...',splitc{j}))
+					% the function declaration is longer than one line, get the next bit
+					tline = fgetl(fid);
+					splitc{j} = strcat(splitc{j},strtrim(tline));
+				end			
 				strstart = findstr(splitc{j},'=') + 1;
 				strfin = findstr(splitc{j},'(') - 1;
 				if (strstart < strfin)
@@ -147,13 +177,26 @@ while ischar(tline)
 				end
 				s.subroutine{end+1} = funcname;
 				if length(s.subroutineH1) < length(s.subroutine)
-					% try for a comment on the next line
-					funcH1 = '';
-					if j+1 < length(splitc)
-						funcH1 = splitc{j+1}
+					% if we picked one up earlier funcH1 is already set
+					if ~strcmp(funcname,candidate)
+						% try for a comment on the next line
+						candidate = strtrim(splitc{j}(3:end));
+						tline = fgetl(fid);
+						prefetched = true; % so that we don't read another line at the end of the loop
+						funcH1 = strtrim(tline);
 						if isempty(strmatch('%',funcH1))
 							funcH1 = ''; % it wasn't a comment
+						else
+							% remove the leading %
+							funcH1 = funcH1(2:end);
 						end
+						% funcH1 = '';
+						% if j+1 < length(splitc)
+						% 	funcH1 = splitc{j+1}
+						% 	if isempty(strmatch('%',funcH1))
+						% 		funcH1 = ''; % it wasn't a comment
+						% 	end
+						% end
 					end
 					% insert a blank h1 for this subroutine if one hasn't been found yet 
 					% (or perhaps the found comment)
@@ -195,7 +238,12 @@ while ischar(tline)
 			end
 		end
 	end
-	tline = fgetl(fid);
+	if prefetched == true
+		% we already got the next line while hunting for H1s
+		prefetched = false;
+	else
+		tline = fgetl(fid);
+	end
 	it = it + 1;
 end	
 

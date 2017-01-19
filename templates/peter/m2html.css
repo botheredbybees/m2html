@@ -32,16 +32,18 @@ a:hover {
 	color:#FFFFFF;
 }
 */
-a.code {
+.fragment a.code {
 	font-weight: normal; 
 	color: #A020F0;
 }
 
-a.code:hover {
-	background-color: #FF0000;
-	color: #FFFFFF;
-}	
 h2 {
 	font-size: 25px;
 }
 
+.nav > li {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    border-radius: 4px;
+}

@@ -24,44 +24,57 @@
 			</h1>
 			<h2><a name="_name"></a>Purpose <a href="#_top"></a></h2>
 			<div class="box"><strong>{H1LINE}</strong></div>
-			<h2><a name="_synopsis"></a>Synopsis <a href="#_top"></a></h2>
+
+			<!-- <h2><a name="_synopsis"></a>Synopsis <a href="#_top"></a></h2>
+			<div class="fragment"><pre class="comment">{SYNOPSIS}</pre></div> -->
+
 			<h2><a name="_description"></a>Description <a href="#_top"></a></h2>
 			<div class="fragment"><pre class="comment">{DESCRIPTION}</pre></div>
+
 			<!-- crossreference -->
 			<h2><a name="_cross"></a>Cross-references <a href="#_top"></a></h2>
-			This function calls:
+			<strong>This function calls:</strong>
+			<table class="table table-hover">
 			<!-- BEGIN crossrefcall -->
-			<div class="row">
-				<div class="col-md-3"><a href="{L_NAME_CALL}" class="code" title="{SYNOP_CALL}">{NAME_CALL}</a></div>
-				<div class="col-md-9">{H1LINE_CALL}</div>
-			</div>
+			<tr>
+				<td><a href="{L_NAME_CALL}" class="code" title="{SYNOP_CALL}">{NAME_CALL}</a></td>
+				<td>{H1LINE_CALL}</td>
+			</tr>
 			<!-- END crossrefcall -->
+			</table>
 			<br>
-			This function is called by:
+			<strong>This function is called by:</strong>
+			<table class="table table-hover">
 			<!-- BEGIN crossrefcalled -->
-			<div class="row">
-				<div class="col-md-3">
+			<tr>
+				<td>
 					<a href="{L_NAME_CALLED}" class="code" title="{SYNOP_CALLED}">{NAME_CALLED}</a>
-				</div>
-				<div class="col-md-9">
+				</td>
+				<td>
 					{H1LINE_CALLED}
-				</div>
-			</div>
+				</td>
+			</tr>
 			<!-- END crossrefcalled -->
+			</table>
 			<!-- crossreference -->
+			
 			<!-- BEGIN subfunction -->
 			<h2><a name="_subfunctions"></a>Subfunctions <a href="#_top"></a></h2>
+			<table class="table table-hover">
 			<!-- BEGIN onesubfunction -->
-			<div class="row">
-				<div class="col-md-3"><a href="{L_SUB}" class="code">{SUB}</a></div>
-				<div class="col-md-9">{SUBH1}</div>
-			</div>
+			<tr>
+				<td><a href="{L_SUB}" class="code">{SUB}</a></td>
+				<td>{SUBH1}</td>
+			</tr>
 			<!-- END onesubfunction -->
+			</table>
 			<!-- END subfunction -->
+
 			<!-- BEGIN download -->
 			<h2><a name="_download"></a>Download <a href="#_top"></a></h2>
 			<p><a href="{NAME}.m">{NAME}.m</a></p>
 			<!-- END download -->
+
 			<!-- BEGIN source -->
 			<h2><a name="_source"></a>Source Code <a href="#_top"></a></h2>
 			<div class="fragment"><pre>{SOURCECODE}</pre></div>
