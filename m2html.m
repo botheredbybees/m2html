@@ -532,7 +532,7 @@ fid = openfile(curfile,'w');
 
 %- Set some template variables
 tpl = set(tpl,'var','DATE',[datestr(now,8) ' ' datestr(now,1) ' ' ...
-							datestr(now,13)]);
+							datestr(now,16)]);
 tpl = set(tpl,'var','MASTERPATH', './');
 tpl = set(tpl,'var','DIRS', sprintf('%s ',mdir{:}));
 
@@ -670,7 +670,7 @@ if options.search
 	tpl = set(tpl,'var','INDEX',[options.indexFile options.extension]);
 	tpl = set(tpl,'var','MASTERPATH','./');
 	tpl = set(tpl,'var','DATE',[datestr(now,8) ' ' datestr(now,1) ' ' ...
-								datestr(now,13)]);
+								datestr(now,16)]);
 	tpl = set(tpl,'var','IDXFILE',idx_search);
 	tpl = set(tpl,'var','PHPFILE',php_search);
 
@@ -756,7 +756,7 @@ tpl = set(tpl,'block','subfolder','subdir','subdirs');
 tpl = set(tpl,'block','TPL_MDIR','todolist','todolists');
 tpl = set(tpl,'block','TPL_MDIR','graph','graphs');
 tpl = set(tpl,'var','DATE',[datestr(now,8) ' ' datestr(now,1) ' ' ...
-							datestr(now,13)]);
+							datestr(now,16)]);
 
 for i=1:length(mdir)
 	%- Open for writing each output directory index file
@@ -859,7 +859,7 @@ if options.todo
 	tpl = set(tpl,'block','TPL_TODO','filelist','filelists');
 	tpl = set(tpl,'block','filelist','row','rows');
 	tpl = set(tpl,'var','DATE',[datestr(now,8) ' ' datestr(now,1) ' ' ...
-								datestr(now,13)]);
+								datestr(now,16)]);
 
 	for i=1:length(mdir)
 		mfilestodo = intersect(find(strcmp(mdir{i},mdirs)),todo.mfile);
@@ -940,7 +940,7 @@ tpl = set(tpl,'block','subfunction','onesubfunction','onesubf');
 tpl = set(tpl,'block','TPL_MFILE','source','thesource');
 tpl = set(tpl,'block','TPL_MFILE','download','downloads');
 tpl = set(tpl,'var','DATE',[datestr(now,8) ' ' datestr(now,1) ' ' ...
-							datestr(now,13)]);
+							datestr(now,16)]);
 
 nblinetot = 0;
 for i=1:length(mdir)
@@ -1264,7 +1264,7 @@ if options.graph
 	tpl = template(options.template,'remove');
 	tpl = set(tpl,'file','TPL_GRAPH',tpl_graph);
 	tpl = set(tpl,'var','DATE',[datestr(now,8) ' ' datestr(now,1) ' ' ...
-								datestr(now,13)]);
+								datestr(now,16)]);
 	
     %- Create a full dependency graph for all directories if possible
     if options.globalHypertextLinks & length(mdir) > 1
