@@ -39,7 +39,7 @@
       </div>
       
       <hr>
-    <address>Generated on {DATE} for {PROJECT} Version {VERSION} </address>
+    <address>Generated on {DATE} for {PROJECT} Version {VERSION} using <a href="https://github.com/botheredbybees/m2html" target="_blank">m2html</a></address>
   </div>
   <script src="js/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>

@@ -1092,37 +1092,41 @@ for i=1:length(mdir)
 			ind = find(hrefs(j,:) == 1);
 			tpl = set(tpl,'var','crossrefcalls','');
 			for k=1:length(ind)
-				if strcmp(mdirs{j},mdirs{ind(k)})
-					tpl = set(tpl,'var','L_NAME_CALL', ...
-						[names{ind(k)} options.extension]);
-				else
-					tpl = set(tpl,'var','L_NAME_CALL', ...
-							  fullurl(backtomaster(mdirs{j}), ...
-							  		   mdirs{ind(k)}, ...
-									   [names{ind(k)} options.extension]));
+				if ~strcmp(names{ind(k)}, names{j}) % ignore calls to self
+					if strcmp(mdirs{j},mdirs{ind(k)})
+						tpl = set(tpl,'var','L_NAME_CALL', ...
+							[names{ind(k)} options.extension]);
+					else
+						tpl = set(tpl,'var','L_NAME_CALL', ...
+								  fullurl(backtomaster(mdirs{j}), ...
+								  		   mdirs{ind(k)}, ...
+										   [names{ind(k)} options.extension]));
+					end
+					tpl = set(tpl,'var','SYNOP_CALL',   synopsis{ind(k)});
+					tpl = set(tpl,'var','NAME_CALL',   names{ind(k)});
+					tpl = set(tpl,'var','H1LINE_CALL', h1line{ind(k)});
+					tpl = parse(tpl,'crossrefcalls','crossrefcall',1);
 				end
-				tpl = set(tpl,'var','SYNOP_CALL',   synopsis{ind(k)});
-				tpl = set(tpl,'var','NAME_CALL',   names{ind(k)});
-				tpl = set(tpl,'var','H1LINE_CALL', h1line{ind(k)});
-				tpl = parse(tpl,'crossrefcalls','crossrefcall',1);
 			end
 			%  Callers
 			ind = find(hrefs(:,j) == 1);
 			tpl = set(tpl,'var','crossrefcalleds','');
 			for k=1:length(ind)
-				if strcmp(mdirs{j},mdirs{ind(k)})
-					tpl = set(tpl,'var','L_NAME_CALLED', ...
-						[names{ind(k)} options.extension]);
-				else
-					tpl = set(tpl,'var','L_NAME_CALLED', ...
-						fullurl(backtomaster(mdirs{j}),...
-							mdirs{ind(k)}, ...
-							[names{ind(k)} options.extension]));
+				if ~strcmp(names{ind(k)}, names{j}) % ignore calls from self
+					if strcmp(mdirs{j},mdirs{ind(k)})
+						tpl = set(tpl,'var','L_NAME_CALLED', ...
+							[names{ind(k)} options.extension]);
+					else
+						tpl = set(tpl,'var','L_NAME_CALLED', ...
+							fullurl(backtomaster(mdirs{j}),...
+								mdirs{ind(k)}, ...
+								[names{ind(k)} options.extension]));
+					end
+					tpl = set(tpl,'var','SYNOP_CALLED',   synopsis{ind(k)});
+					tpl = set(tpl,'var','NAME_CALLED',   names{ind(k)});
+					tpl = set(tpl,'var','H1LINE_CALLED', h1line{ind(k)});
+					tpl = parse(tpl,'crossrefcalleds','crossrefcalled',1);
 				end
-				tpl = set(tpl,'var','SYNOP_CALLED',   synopsis{ind(k)});
-				tpl = set(tpl,'var','NAME_CALLED',   names{ind(k)});
-				tpl = set(tpl,'var','H1LINE_CALLED', h1line{ind(k)});
-				tpl = parse(tpl,'crossrefcalleds','crossrefcalled',1);
 			end
 			
 			%- Set subfunction template field
