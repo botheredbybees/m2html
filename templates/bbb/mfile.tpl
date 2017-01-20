@@ -15,7 +15,7 @@
 		<div class="container">
 			<a name="_top"></a>
 			<ol class="breadcrumb">
-				<li><a href="{MASTERPATH}{INDEX}">{PROJECT} sourcecode Home</a></li>
+				<li><a href="{MASTERPATH}{INDEX}">{PROJECT} sourcecode home</a></li>
 				<!-- BEGIN pathline --> <li><a href="{LPATHDIR}">{PATHDIR}</a></li> <!-- END pathline -->
 				<li class="active">{NAME}.m</li>
 			</ol>

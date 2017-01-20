@@ -15,11 +15,18 @@
 		<div class="container">
 			<a name="_top"></a>
 			<ol class="breadcrumb">
-				<li><a href="{MASTERPATH}{INDEX}">{PROJECT} sourcecode Home</a></li>
+				<li><a href="{MASTERPATH}{INDEX}">{PROJECT} sourcecode home</a></li>
 				<li class="active">{MDIR}</li>
 			</ol>
 			<h1>Index of {MDIR}</h1>
-
+			<!-- BEGIN subfolder -->
+			<h2>Directories</h2>
+			<ul class="nav nav-pills">
+				<!-- BEGIN subdir -->
+				<li>{SUBDIRECTORY}</li>
+				<!-- END subdir -->
+			</ul>
+			<!-- END subfolder -->
 			<!-- BEGIN graph -->
 			<a href="{LGRAPH}"><h2>Dependency Graph <img alt=">" border="0" src="{MASTERPATH}img/right.png"></h2></a><br>
 			<!-- END graph -->
@@ -45,14 +52,7 @@
 				<!-- END row-other -->
 			</ul>
 			<!-- END othermatlab -->
-			<!-- BEGIN subfolder -->
-			<h2>Subdirectories</h2>
-			<ul class="nav nav-pills nav-stacked">
-				<!-- BEGIN subdir -->
-				<li>{SUBDIRECTORY}</li>
-				<!-- END subdir -->
-			</ul>
-			<!-- END subfolder -->
+			
 			
 			<!-- BEGIN todolist -->
 			<h2>TODO List</h2>
@@ -61,7 +61,7 @@
 			</ul>
 			<!-- END todolist -->
 			<hr>
-    <address>Generated on {DATE} for {PROJECT} Version {VERSION} </address>
+		<address>Generated on {DATE} for {PROJECT} Version {VERSION} </address>
 	</div>
 	<script src="{MASTERPATH}js/jquery.min.js"></script>
 	<script src="{MASTERPATH}js/bootstrap.min.js"></script>

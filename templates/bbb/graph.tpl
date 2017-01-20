@@ -14,7 +14,7 @@
 	<body>
 		<a name="_top"></a>
 		<ol class="breadcrumb">
-			<li><a href="{MASTERPATH}{INDEX}">{PROJECT} sourcecode Home</a></li>
+			<li><a href="{MASTERPATH}{INDEX}">{PROJECT} sourcecode home</a></li>
 			<li><a href="{INDEX}">Index for {MDIR}</a></li>
 			<li class="active">{MDIR} dependencies</li>
 		</ol>

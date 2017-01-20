@@ -17,8 +17,11 @@ function s = mfileparse(mfile, mdirs, names, options)
 
 %  Copyright (C) 2003 Guillaume Flandin <Guillaume@artefact.tk>
 %  $Revision: 1.0 $Date: 2003/29/04 17:33:43 $
-%  Monkeyed a bit with s.h1line  around line 66 to suit Lindsay Peddar's coding style, Peter Shanks Jan 17, 2017
-% also: stripped leading % signs 
+%
+%  Modified to search for our local ex-coder's unique commenting style 2017
+%  also: stripped leading % characters from resulting strings 
+%  stripped return values and arguments from function link text for readability
+%  Peter Shanks, 2017-Jan-20
 
 narginchk(3,4);
 if nargin == 3,
@@ -30,6 +33,7 @@ strtok_delim = sprintf(' \t\n\r(){}[]<>+-*~!|\\@&/,:;="''%%');
 
 %- Open for reading the M-file
 fid = openfile(mfile,'r');
+[pathstr,name,ext] = fileparts(mfile);
 it = 0; % line number
 
 %- Initialize Output
@@ -190,33 +194,20 @@ while ischar(tline)
 							% remove the leading %
 							funcH1 = funcH1(2:end);
 						end
-						% funcH1 = '';
-						% if j+1 < length(splitc)
-						% 	funcH1 = splitc{j+1}
-						% 	if isempty(strmatch('%',funcH1))
-						% 		funcH1 = ''; % it wasn't a comment
-						% 	end
-						% end
 					end
 					% insert a blank h1 for this subroutine if one hasn't been found yet 
-					% (or perhaps the found comment)
+					% (or perhaps the found comment if funcH1 has been set above)
 					while length(s.subroutineH1) < length(s.subroutine)
-						if isempty(funcH1)
+						if isempty(funcH1) & ...
+							~strcmp(name,funcname) % don't warn if it's the class name
 							warning('No H1 found for subroutine %s', funcname);
 						end					
 						s.subroutineH1{end+1} = funcH1;
 					end
 				end
 				% or get rid of any cruft that's crept in from bogus methods
-				if length(s.subroutine) < length(s.subroutineH1)				
-					% the last entry should be the good one
-					% goodH1 = s.subroutineH1{end};
-					% % strip off all others					
-					% s.subroutineH1(length(s.subroutine)) = [];
-					% s.subroutineH1{end} = goodH1;
+				if length(s.subroutine) < length(s.subroutineH1)
 					warning('Too many subroutine H1s');
-					% sorry, I tried the above but no go
-					% will just have to fall back on editing the comments and rerunning
 				end
 
 			else

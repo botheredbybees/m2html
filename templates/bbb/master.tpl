@@ -14,7 +14,7 @@
   <body>
     <div class="container">
       <a name="_top"></a>
-      <h1>{PROJECT} Source Code</h1>
+      <h1>Source Code: {PROJECT} Version {VERSION}</h1>
       <h2>Directories</h2>
       <ul class="nav nav-pills">
         <!-- BEGIN rowdir -->
