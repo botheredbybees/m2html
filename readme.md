@@ -56,3 +56,5 @@ My favorites are 'graph', 'project' and 'version'
 One of the best things about m2html is that it uses a templating system
 Template files are in the /templates directory and can be copied and edited to create a thing of beauty.
 By default the m2html.m script uses the 'bbb' template
+
+You can also get m2html to create class dependancies that link to each class. To get this working you will need to install [Graphviz](http://www.graphviz.org/) and add it to your path

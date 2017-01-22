@@ -86,13 +86,14 @@ function m2html(varargin)
 %  <http://www.mathworks.com/access/helpdesk/help/techdoc/matlab_prog/ch_funh8.html>
 
 %  This function uses the Template class so that you can fully customize 
-%  the output. You can modify .tpl files in templates/blue/ or create new
+%  the output. You can modify .tpl files in templates/bbb/ or create new
 %  templates in a new directory.
 %  See the template class documentation for more details.
 %  <http://www.artefact.tk/software/matlab/template/>
 
 %  Latest information on M2HTML is available on the web through:
 %  <http://www.artefact.tk/software/matlab/m2html/>
+% or on github <https://github.com/botheredbybees/m2html>
 
 %  Other Matlab to HTML converters available on the web:
 %  

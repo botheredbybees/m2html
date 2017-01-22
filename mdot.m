@@ -49,7 +49,9 @@ if nargin == 2
 		n = find(hrefs(i,:) == 1);
 		m{i} = n;
 		for j=1:length(n)
-			fprintf(fid,['  ' names{i} ' -> ' names{n(j)} ';\n']);
+			if  ~strcmp(names{i},names{n(j)}) % skip self references
+				fprintf(fid,['  ' names{i} ' -> ' names{n(j)} ';\n']);
+			end
 		end
 	end
 	%m = unique([m{:}]);
